@@ -1,0 +1,15 @@
+# Gradle
+/.gradle
+/build
+
+# eclipse
+/.apt_generated
+/.classpath
+/.factorypath
+/.project
+/.settings
+/bin
+
+# other
+*.log
+
