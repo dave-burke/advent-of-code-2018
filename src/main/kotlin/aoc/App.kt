@@ -3,13 +3,8 @@
  */
 package aoc
 
-class App {
-    val greeting: String
-        get() {
-            return "Hello world."
-        }
-}
+import aoc.day01.Day01
 
 fun main(args: Array<String>) {
-    println(App().greeting)
+    Day01().exec()
 }
