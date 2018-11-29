@@ -14,9 +14,12 @@ class App {
 
     private fun loadInput(day: Int): String {
         val paddedDay: String = day.toString().padStart(2, '0')
-        val inputFile = File(ClassLoader.getSystemResource("day$paddedDay.txt").file)
-        val lines = inputFile.readLines(StandardCharsets.UTF_8)
-        return lines[0]
+        val fileName = "day$paddedDay.txt"
+        var result = ""
+        ClassLoader.getSystemResourceAsStream(fileName).bufferedReader().use {
+            result = it.readLine()
+        }
+        return result
     }
 
     fun exec(day: Int): String? {
