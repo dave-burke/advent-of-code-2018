@@ -1,5 +1,7 @@
 # Advent of Code 2018
 
+[![Build Status](https://travis-ci.com/dave-burke/advent-of-code-2018.svg?branch=master)](https://travis-ci.com/dave-burke/advent-of-code-2018)
+
 These are my solutions to the [Advent of Code 2018](https://adventofcode.com/2018) challenge.
 
 ## Usage
