@@ -4,7 +4,28 @@
 package aoc
 
 import aoc.day01.Day01
+import java.io.File
+import java.nio.charset.StandardCharsets
 
+class App {
+    private val days: Map<Int, Day> = mapOf(
+            1 to Day01()
+    )
+
+    private fun loadInput(day: Int): String {
+        val paddedDay: String = day.toString().padStart(2, '0')
+        val inputFile = File(ClassLoader.getSystemResource("day$paddedDay.txt").file)
+        val lines = inputFile.readLines(StandardCharsets.UTF_8)
+        return lines[0]
+    }
+
+    fun exec(day: Int): String? {
+        val input = loadInput(day)
+        return days[day]?.exec(input)
+    }
+
+}
 fun main(args: Array<String>) {
-    Day01().exec()
+    val day = if (args.isEmpty()) 1 else args[0].toInt()
+    println(App().exec(day))
 }

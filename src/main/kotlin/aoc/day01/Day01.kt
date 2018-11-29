@@ -1,7 +1,9 @@
 package aoc.day01
 
-class Day01 {
-    fun exec() {
-        println("Day 01")
+import aoc.Day
+
+class Day01 : Day {
+    override fun exec(input: String): String {
+        return input
     }
 }
