@@ -10,6 +10,9 @@
 /.settings
 /bin
 
+# idea
+/.idea
+
 # other
 *.log
 
