@@ -1,5 +1,5 @@
 package aoc
 
 interface Day {
-    fun exec(input: String): String
+    fun exec(input: List<String>): String
 }

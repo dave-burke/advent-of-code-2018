@@ -12,19 +12,17 @@ class App {
             1 to Day01()
     )
 
-    private fun loadInput(day: Int): String {
+    private fun loadInput(day: Int): List<String> {
         val paddedDay: String = day.toString().padStart(2, '0')
         val fileName = "day$paddedDay.txt"
-        var result = ""
-        ClassLoader.getSystemResourceAsStream(fileName).bufferedReader().use {
-            result = it.readLine()
-        }
-        return result
+        return ClassLoader.getSystemResourceAsStream(fileName)
+                .bufferedReader()
+                .readLines();
     }
 
-    fun exec(day: Int): String? {
+    fun exec(day: Int): String {
         val input = loadInput(day)
-        return days[day]?.exec(input)
+        return days[day]?.exec(input) ?: ""
     }
 
 }
