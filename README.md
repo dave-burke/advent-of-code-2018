@@ -8,7 +8,7 @@ These are my solutions to the [Advent of Code 2018](https://adventofcode.com/201
 
 ```sh
 ./gradlew clean build install
-./build/install/aoc-2018/bin/aoc-2018 [day number]
+./build/install/aoc-2018/bin/aoc-2018 [day number] [part number]
 ```
 
 The `main` function in `App` will execute the code for a given day based on input in `src/main/resources/day[number].txt`

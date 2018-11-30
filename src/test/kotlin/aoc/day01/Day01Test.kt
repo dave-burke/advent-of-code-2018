@@ -6,12 +6,24 @@ import kotlin.test.assertEquals
 class Day01Test {
 
     @Test
-    fun testDay01() {
+    fun testPart1() {
         // Given
         val input = listOf("test")
 
         // When
-        val result: String = Day01().exec(input)
+        val result: String = Day01().part1(input)
+
+        // Then
+        assertEquals("test", result)
+    }
+
+    @Test
+    fun testPart2() {
+        // Given
+        val input = listOf("test")
+
+        // When
+        val result: String = Day01().part2(input)
 
         // Then
         assertEquals("test", result)

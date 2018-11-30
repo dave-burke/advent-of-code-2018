@@ -4,8 +4,6 @@
 package aoc
 
 import aoc.day01.Day01
-import java.io.File
-import java.nio.charset.StandardCharsets
 
 class App {
     private val days: Map<Int, Day> = mapOf(
@@ -20,13 +18,18 @@ class App {
                 .readLines();
     }
 
-    fun exec(day: Int): String {
+    fun exec(day: Int = 1, part: Int = 1): String {
         val input = loadInput(day)
-        return days[day]?.exec(input) ?: ""
+
+        if (part == 1) return days[day]?.part1(input) ?: ""
+        if (part == 2) return days[day]?.part2(input) ?: ""
+        throw IllegalArgumentException("Only 2-part puzzles are implemented.")
     }
 
 }
 fun main(args: Array<String>) {
     val day = if (args.isEmpty()) 1 else args[0].toInt()
-    println(App().exec(day))
+    val part = if (args.size <= 1) 1 else args[1].toInt()
+
+    println(App().exec(day, part))
 }
