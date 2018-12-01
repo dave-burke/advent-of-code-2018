@@ -23,6 +23,14 @@ class Day01 : Day {
 	}
 
 	override fun part2(input: List<String>): String {
-		return input.joinToString(separator = "\n")
+		var cur = 0
+		val seen: MutableSet<Int> = HashSet()
+		seen.add(cur)
+		while(true) {
+			for (line in input) {
+				cur = update(cur, line)
+				if (!seen.add(cur)) return cur.toString()
+			}
+		}
 	}
 }
