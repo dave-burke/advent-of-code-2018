@@ -16,6 +16,11 @@ class Day01Test {
 	}
 
     @Test
+    fun testPart1_sampl0() {
+	    testPart1(listOf("+1", "-2", "+3", "+1"), "3")
+    }
+
+    @Test
     fun testPart1_sampl1() {
 	    testPart1(listOf("+1", "+1", "+1"), "3")
     }
