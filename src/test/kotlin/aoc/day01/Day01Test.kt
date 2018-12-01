@@ -2,7 +2,6 @@ package aoc.day01
 
 import aoc.AocTestUtil
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class Day01Test {
 
