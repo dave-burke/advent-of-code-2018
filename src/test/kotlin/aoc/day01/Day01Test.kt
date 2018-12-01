@@ -5,28 +5,29 @@ import kotlin.test.assertEquals
 
 class Day01Test {
 
-    @Test
-    fun testPart1() {
-        // Given
-        val input = listOf("test")
+	private fun testPart1(input: List<String>, expected: String) {
+		// Given the input
 
-        // When
+		// When
         val result: String = Day01().part1(input)
 
         // Then
-        assertEquals("test", result)
+        assertEquals(expected, result)
+	}
+
+    @Test
+    fun testPart1_sampl1() {
+	    testPart1(listOf("+1", "+1", "+1"), "3")
     }
 
     @Test
-    fun testPart2() {
-        // Given
-        val input = listOf("test")
+    fun testPart1_sampl2() {
+	    testPart1(listOf("+1", "+1", "-2"), "0")
+    }
 
-        // When
-        val result: String = Day01().part2(input)
-
-        // Then
-        assertEquals("test", result)
+    @Test
+    fun testPart1_sampl3() {
+	    testPart1(listOf("-1", "-2", "-3"), "-6")
     }
 
 }
