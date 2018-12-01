@@ -4,23 +4,25 @@ import aoc.Day
 
 class Day01 : Day {
 
-    override fun part1(input: List<String>): String {
-	    var result: Int = 0
-	    for (freq in input) {
-		    val sign = freq.get(0)
-		    val magnitude = freq.drop(1).toInt()
-		    if(sign == '+') {
-			    result += magnitude
-			} else if (sign == '-') {
-				result -= magnitude
-			} else {
-				throw IllegalStateException("Unknown operation $sign")
-			}
+	private fun update(cur: Int, change: String): Int {
+		val sign = change.get(0)
+		val magnitude = change.drop(1).toInt()
+		when(sign) {
+			'+' -> return cur + magnitude
+			'-' -> return cur - magnitude
+			else -> throw IllegalStateException("Unknown operation $sign")
 		}
-        return result.toString()
-    }
+	}
 
-    override fun part2(input: List<String>): String {
-        return input.joinToString(separator = "\n")
-    }
+	override fun part1(input: List<String>): String {
+		var result: Int = 0
+		for (line in input) {
+			result = update(result, line)
+		}
+		return result.toString()
+	}
+
+	override fun part2(input: List<String>): String {
+		return input.joinToString(separator = "\n")
+	}
 }
