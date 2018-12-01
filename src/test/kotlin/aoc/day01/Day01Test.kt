@@ -1,6 +1,7 @@
 package aoc.day01
 
 import aoc.AocTestUtil
+import aoc.inputForDay
 import kotlin.test.Test
 
 class Day01Test {
@@ -28,6 +29,11 @@ class Day01Test {
 	}
 
 	@Test
+	fun testPart1() {
+		util.testPart1(inputForDay(1), "533")
+	}
+
+	@Test
 	fun testPart2_sample0() {
 		util.testPart2(listOf("+1", "-2", "+3", "+1"), "2")
 	}
@@ -51,4 +57,10 @@ class Day01Test {
 	fun testPart2_sample4() {
 		util.testPart2(listOf("+7", "+7", "-2", "-7", "-4"), "14")
 	}
+
+	@Test
+	fun testPart2() {
+		util.testPart2(inputForDay(1), "73272")
+	}
+
 }

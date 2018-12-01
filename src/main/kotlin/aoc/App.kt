@@ -4,22 +4,15 @@
 package aoc
 
 import aoc.day01.Day01
+import aoc.inputForDay
 
 class App {
 	private val days: Map<Int, Day> = mapOf(
 			1 to Day01()
 	)
 
-	private fun loadInput(day: Int): List<String> {
-		val paddedDay: String = day.toString().padStart(2, '0')
-		val fileName = "day$paddedDay.txt"
-		return ClassLoader.getSystemResourceAsStream(fileName)
-				.bufferedReader()
-				.readLines();
-	}
-
 	fun exec(day: Int = 1, part: Int = 1): String {
-		val input = loadInput(day)
+		val input = inputForDay(day)
 
 		if (part == 1) return days[day]?.part1(input) ?: ""
 		if (part == 2) return days[day]?.part2(input) ?: ""
