@@ -1,6 +1,7 @@
 package aoc.day02
 
 import aoc.AocTestUtil
+import aoc.inputForDay
 import kotlin.test.assertEquals
 import org.junit.Test
 import org.junit.Ignore
@@ -62,14 +63,45 @@ class Day02Test {
 	@Test
 	fun testPart1_sample0() {
 		util.testPart1(listOf(
-		"abcdef",
-		"bababc",
-		"abbcde",
-		"abcccd",
-		"aabcdd",
-		"abcdee",
-		"ababab"), "12")
+			"abcdef",
+			"bababc",
+			"abbcde",
+			"abcccd",
+			"aabcdd",
+			"abcdee",
+			"ababab"
+		), "12")
 	}
 
+	@Test
+	fun testRemoveDiffs() {
+		// Given
+		val a = "fghij"
+		val b = "fguij"
+
+		// When
+		val result = day.removeDiffs(a, b)
+
+		// Then
+		assertEquals("fgij", result)
+	}
+
+	@Test
+	fun testPart2_sample0(){
+		util.testPart2(listOf(
+			"abcde",
+			"fghij",
+			"klmno",
+			"pqrst",
+			"fguij",
+			"axcye",
+			"wvxyz"
+		), "fgij")
+	}
+
+	@Test
+	fun testPart2(){
+		util.testPart2(inputForDay(2), "fvstwblgqkhpuixdrnevmaycd")
+	}
 }
 

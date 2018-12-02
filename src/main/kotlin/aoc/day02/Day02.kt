@@ -1,6 +1,7 @@
 package aoc.day02
 
 import aoc.Day
+import aoc.day02.cartesianProduct
 
 class Day02 : Day {
 
@@ -32,8 +33,22 @@ class Day02 : Day {
 		return (nPairs * nTriples).toString()
 	}
 
+	fun removeDiffs(a: String, b: String): String {
+		var result = ""
+		for ((i, aChar) in a.withIndex()) {
+			val bChar = b[i]
+			if(aChar == bChar) result += aChar
+		}
+		return result
+	}
+
 	override fun part2(input: List<String>): String {
-		TODO("not implemented")
+		val pairs = input.cartesianProduct(input)
+		for((a,b) in pairs){
+			val matching = removeDiffs(a,b)
+			if(a.length - matching.length == 1) return matching
+		}
+		throw IllegalStateException("No match found!")
 	}
 
 }
