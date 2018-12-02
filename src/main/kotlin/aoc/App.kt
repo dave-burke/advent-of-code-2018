@@ -4,11 +4,13 @@
 package aoc
 
 import aoc.day01.Day01
+import aoc.day02.Day02
 import aoc.inputForDay
 
 class App {
 	private val days: Map<Int, Day> = mapOf(
-			1 to Day01()
+			1 to Day01(),
+			2 to Day02()
 	)
 
 	fun exec(day: Int = 1, part: Int = 1): String {
