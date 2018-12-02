@@ -9,20 +9,12 @@ class Day02 : Day {
 		return s.groupingBy{ it }.eachCount().toMap()
 	}
 
-	fun hasPair(counts: Map<Char, Int>): Boolean {
-		return counts.values.contains(2)
-	}
-
-	fun hasTriple(counts: Map<Char, Int>): Boolean {
-		return counts.values.contains(3)
-	}
-
 	fun countPairs(input: List<String>): Int {
-		return input.map { charCounts(it) }.count { hasPair(it) }
+		return input.map { charCounts(it) }.count { 2 in it.values }
 	}
 
 	fun countTriples(input: List<String>): Int {
-		return input.map { charCounts(it) }.count { hasTriple(it) }
+		return input.map { charCounts(it) }.count { 3 in it.values }
 	}
 
 	override fun part1(input: List<String>): String {
@@ -34,12 +26,9 @@ class Day02 : Day {
 	}
 
 	fun removeDiffs(a: String, b: String): String {
-		var result = ""
-		for ((i, aChar) in a.withIndex()) {
-			val bChar = b[i]
-			if(aChar == bChar) result += aChar
-		}
-		return result
+		return a.zip(b) { aChar, bChar -> aChar.takeIf { it == bChar }}
+				.filterNotNull()
+				.joinToString("")
 	}
 
 	override fun part2(input: List<String>): String {
