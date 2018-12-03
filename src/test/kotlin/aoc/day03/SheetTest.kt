@@ -43,9 +43,22 @@ class SheetTest {
 		val result = sheet.countOverlaps()
 
 		// Then
-		sheet.print()
 		assertEquals(1, result)
+	}
 
+	@Test
+	fun testToString(){
+		// Given
+		val size = 5
+		val sheet = Sheet(size)
+		sheet.addClaim(Claim(width=2, height=2))
+		sheet.addClaim(Claim(top=1, left=1, width=2, height=2))
+
+		// When
+		val result = sheet.toString()
+
+		// Then
+		println(result)
 	}
 
 

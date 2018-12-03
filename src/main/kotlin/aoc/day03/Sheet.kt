@@ -54,9 +54,8 @@ class Sheet(val size: Int = 1_000) {
 		return anyIn(claim) { it > 1 }
 	}
 
-	fun print() {
-		if(size > 100) throw IllegalStateException("You probably didn't mean to print a grid of size $size")
-		grid.forEach{ row -> println(row.joinToString(separator=" "))}
+	override fun toString(): String {
+		return grid.map { it.joinToString(separator=" ") }.joinToString(separator="\n")
 	}
 
 }
