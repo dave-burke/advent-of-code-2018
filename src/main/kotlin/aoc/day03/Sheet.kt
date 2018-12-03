@@ -32,6 +32,15 @@ class Sheet(val size: Int = 1_000) {
 		return result
 	}
 
+	fun hasOverlaps(claim: Claim): Boolean {
+		for ( i in claim.left..claim.right - 1 ){
+			for ( j in claim.top..claim.bottom - 1){
+				if (grid[i][j] > 1) return true
+			}
+		}
+		return false
+	}
+
 	fun print() {
 		if(size > 100) throw IllegalStateException("You probably didn't mean to print a grid of size $size")
 		grid.forEach{ row -> println(row.joinToString(separator=" "))}
