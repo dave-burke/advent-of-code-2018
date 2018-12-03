@@ -6,12 +6,36 @@ class Sheet(val size: Int = 1_000) {
 
 	val grid = Array(size) { _ -> IntArray(size) { _ -> 0 } }
 
-	fun addClaim(claim: Claim){
+	fun map(claim: Claim, function: (value: Int) -> Int) {
 		for ( i in claim.left..claim.right - 1 ){
 			for ( j in claim.top..claim.bottom - 1){
-				grid[i][j]++
+				grid[i][j] = function(grid[i][j])
 			}
 		}
+	}
+
+	fun find(predicate: (value: Int) -> Boolean): List<Int> {
+		var result = mutableListOf<Int>()
+		for ( i in 0..size - 1 ){
+			for ( j in 0..size - 1 ){
+				val gridVal = grid[i][j]
+				if(predicate(gridVal)) result.add(gridVal)
+			}
+		}
+		return result.toList()
+	}
+
+	fun anyIn(claim: Claim, predicate: (value: Int) -> Boolean): Boolean {
+		for ( i in claim.left..claim.right - 1 ){
+			for ( j in claim.top..claim.bottom - 1){
+				if(predicate(grid[i][j])) return true
+			}
+		}
+		return false
+	}
+
+	fun addClaim(claim: Claim){
+		map(claim) { it + 1 }
 	}
 
 	fun addClaims(claims: Iterable<Claim>) {
@@ -23,22 +47,11 @@ class Sheet(val size: Int = 1_000) {
 	}
 
 	fun countOverlaps(): Int {
-		var result = 0
-		for ( i in 0..size - 1 ){
-			for ( j in 0..size - 1 ){
-				if (grid[i][j] > 1) result++
-			}
-		}
-		return result
+		return find { it > 1 }.size
 	}
 
 	fun hasOverlaps(claim: Claim): Boolean {
-		for ( i in claim.left..claim.right - 1 ){
-			for ( j in claim.top..claim.bottom - 1){
-				if (grid[i][j] > 1) return true
-			}
-		}
-		return false
+		return anyIn(claim) { it > 1 }
 	}
 
 	fun print() {
