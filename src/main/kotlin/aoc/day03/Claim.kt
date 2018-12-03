@@ -1,7 +1,5 @@
 package aoc.day03
 
-operator fun List<Any>.component6() = this[5]
-
 fun String.toClaim(): Claim {
 	// e.g. "#123 @ 3,2: 5x4"
 	val regex = Regex("""#(\d+) @ (\d+),(\d+): (\d+)x(\d+)""")
