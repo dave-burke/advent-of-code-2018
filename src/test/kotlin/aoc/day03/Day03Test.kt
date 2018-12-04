@@ -28,6 +28,11 @@ class Day03Test {
 	}
 
 	@Test
+	fun testPart1(){
+		util.testPart1(inputForDay(3), "121259")
+	}
+
+	@Test
 	fun testPart2_sample0() {
 		// Given
 		val input = listOf(
@@ -43,5 +48,9 @@ class Day03Test {
 		assertEquals("3", result)
 	}
 
+	@Test
+	fun testPart2(){
+		util.testPart2(inputForDay(3), "239")
+	}
 }
 
