@@ -2,60 +2,41 @@ package aoc.day03
 
 import aoc.day03.Claim
 
-class Sheet(val size: Int = 1_000) {
+class Sheet(val size: Int = 1_001) {
 
-	val grid = Array(size) { _ -> IntArray(size) { _ -> 0 } }
+	val grid = mutableMapOf<Pair<Int, Int>, Int>()
 
-	fun map(claim: Claim, function: (value: Int) -> Int) {
-		for ( i in claim.left..claim.right - 1 ){
-			for ( j in claim.top..claim.bottom - 1){
-				grid[i][j] = function(grid[i][j])
-			}
-		}
-	}
-
-	fun find(predicate: (value: Int) -> Boolean): List<Int> {
-		var result = mutableListOf<Int>()
-		for ( i in 0..size - 1 ){
-			for ( j in 0..size - 1 ){
-				val gridVal = grid[i][j]
-				if(predicate(gridVal)) result.add(gridVal)
-			}
-		}
-		return result.toList()
-	}
-
-	fun anyIn(claim: Claim, predicate: (value: Int) -> Boolean): Boolean {
-		for ( i in claim.left..claim.right - 1 ){
-			for ( j in claim.top..claim.bottom - 1){
-				if(predicate(grid[i][j])) return true
-			}
-		}
-		return false
-	}
+	fun getValue(x: Int, y: Int) = grid.getOrElse(Pair(x,y)){ 0 }
 
 	fun addClaim(claim: Claim){
-		map(claim) { it + 1 }
+		for ( x in claim.left..claim.right - 1 ){
+			for ( y in claim.top..claim.bottom - 1){
+				grid[Pair(x,y)] = getValue(x,y) + 1
+			}
+		}
 	}
 
 	fun addClaims(claims: Iterable<Claim>) {
 		claims.forEach(this::addClaim)
 	}
 
-	fun get(col: Int, row: Int): Int {
-		return grid[col][row]
-	}
-
-	fun countOverlaps(): Int {
-		return find { it > 1 }.size
-	}
+	fun countOverlaps(): Int = grid.values.filter{ it > 1 }.size
 
 	fun hasOverlaps(claim: Claim): Boolean {
-		return anyIn(claim) { it > 1 }
+		for ( x in claim.left..claim.right - 1 ){
+			for ( y in claim.top..claim.bottom - 1){
+				if(getValue(x,y) > 1) return true
+			}
+		}
+		return false
 	}
 
 	override fun toString(): String {
-		return grid.map { it.joinToString(separator=" ") }.joinToString(separator="\n")
+		return (0..size).map{ x -> 
+			(0..size).map{ y -> 
+				getValue(x,y)
+			}.joinToString(" ")
+		}.joinToString("\n")
 	}
 
 }

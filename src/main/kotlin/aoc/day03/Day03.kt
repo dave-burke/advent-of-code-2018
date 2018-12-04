@@ -7,14 +7,14 @@ import aoc.day03.Sheet
 class Day03 : Day {
 
 	override fun part1(input: List<String>): String {
-		val sheet = Sheet(1001)
+		val sheet = Sheet()
 		sheet.addClaims(input.map { it.toClaim() })
 
 		return sheet.countOverlaps().toString()
 	}
 
 	override fun part2(input: List<String>): String {
-		val sheet = Sheet(1001)
+		val sheet = Sheet()
 		val claims = input.map { it.toClaim() }
 		sheet.addClaims(claims)
 

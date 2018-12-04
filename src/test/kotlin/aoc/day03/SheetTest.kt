@@ -14,7 +14,7 @@ class SheetTest {
 		val result = Sheet(size)
 
 		// Then
-		assertEquals(0, result.get(9,9))
+		assertEquals(0, result.getValue(9,9))
 	}
 
 	@Test
@@ -28,7 +28,7 @@ class SheetTest {
 		sheet.addClaim(claim)
 
 		// Then
-		assertEquals(1, sheet.get(0,0))
+		assertEquals(1, sheet.getValue(0,0))
 	}
 
 	@Test
