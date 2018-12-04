@@ -12,6 +12,42 @@ class Day04Test {
 	private val util: AocTestUtil = AocTestUtil(day)
 
 	@Test
+	fun testSplitWhen_startsOnBorder(){
+		// Given
+		val input = listOf(1, 0, 0, 2, 0, 0)
+
+		// When
+		val result = input.splitWhen { it > 0 }
+
+		// Then
+		assertEquals(listOf(1, 0, 0), result.first())
+	}
+
+	@Test
+	fun testSplitWhen_startsWithoutBorder(){
+		// Given
+		val input = listOf(0, 0, 2, 0, 0)
+
+		// When
+		val result = input.splitWhen { it > 0 }
+
+		// Then
+		assertEquals(listOf(2, 0, 0), result.last())
+	}
+
+	@Test
+	fun testSplitWhen_noGaps(){
+		// Given
+		val input = listOf(1, 0, 2, 2, 0)
+
+		// When
+		val result = input.splitWhen { it > 0 }
+
+		// Then
+		assertEquals(3, result.size)
+	}
+
+	@Test
 	fun testPart1_sample0() {
 		// Given
 		val input = listOf(
@@ -38,7 +74,7 @@ class Day04Test {
 		val result = day.part1(input)
 
 		// Then
-		assertEquals("25", result)
+		assertEquals("240", result)
 	}
 
 	@Test
