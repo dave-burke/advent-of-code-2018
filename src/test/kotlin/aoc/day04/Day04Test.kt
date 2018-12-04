@@ -78,6 +78,11 @@ class Day04Test {
 	}
 
 	@Test
+	fun testPart1(){
+		util.testPart1(inputForDay(4), "118599")
+	}
+
+	@Test
 	@Ignore
 	fun testPart2_sample0() {
 		// Given
