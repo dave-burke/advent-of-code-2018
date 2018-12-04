@@ -5,19 +5,21 @@ package aoc
 
 import aoc.day01.Day01
 import aoc.day02.Day02
+import aoc.day03.Day03
 import aoc.inputForDay
 
 class App {
 	private val days: Map<Int, Day> = mapOf(
 			1 to Day01(),
-			2 to Day02()
+			2 to Day02(),
+			3 to Day03()
 	)
 
 	fun exec(day: Int = 1, part: Int = 1): String {
 		val input = inputForDay(day)
 
-		if (part == 1) return days[day]?.part1(input) ?: ""
-		if (part == 2) return days[day]?.part2(input) ?: ""
+		if (part == 1) return days[day]?.part1(input) ?: throw IllegalArgumentException("No day defined for $day")
+		if (part == 2) return days[day]?.part2(input) ?: throw IllegalArgumentException("No day defined for $day")
 		throw IllegalArgumentException("Only 2-part puzzles are implemented.")
 	}
 
