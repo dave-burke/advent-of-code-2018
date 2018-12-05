@@ -2,23 +2,23 @@ package aoc.day04
 
 import java.time.*
 
-operator fun LocalDateTime.minus(other: LocalDateTime) = Duration.between(other, this)
+data class Guard(val id: Int, val shifts: List<Shift>) {
 
-data class Guard(val id: Int, val naps: List<Pair<LocalDateTime, LocalDateTime>> = listOf()) {
+	val totalNapDuration = shifts.map { it.totalNapDuration }.sum()
 
-	fun withNaps(newNaps: List<Pair<LocalDateTime, LocalDateTime>>): Guard {
-		return this.copy(naps = naps + newNaps)
-	}
+	val sleepiestMinute = sleepFrequencyByMinute.maxBy { (_,v) -> v }?.key
 
-	private fun sleepyMinutes(): Collection<Int> {
-		return naps.flatMap { (start, end) -> start.minute until end.minute }
-	}
-
-	private fun sleepyMinuteCounts(): Map<Int, Int> {
-		return sleepyMinutes().groupingBy { it }.eachCount()
-	}
-
-	val totalSleep = naps.map{ (start, end) -> (end - start).toMinutes() }.sum().toInt()
-	val sleepiestMinute: Int = sleepyMinuteCounts().maxBy { (_,v) -> v }!!.key
-
+	val sleepFrequencyByMinute: Map<Int, Int>
+		get() {
+			val result = mutableMapOf<Int, Int>()
+			for(i in 0..59) {
+				for(shift in shifts) {
+					if(i in shift.napMinutes){
+						val cur = result.getOrDefault(i, 0)
+						result.put(i, cur + 1)
+					}
+				}
+			}
+			return result.toMap()
+		}
 }

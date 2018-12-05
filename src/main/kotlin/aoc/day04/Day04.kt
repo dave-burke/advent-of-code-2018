@@ -2,7 +2,6 @@ package aoc.day04
 
 import aoc.Day
 import java.time.*
-import java.time.format.*
 
 fun <T> Collection<T>.splitWhen(itemMatches: (item: T) -> Boolean): Collection<Collection<T>> {
 	val result = mutableListOf<List<T>>()
@@ -23,42 +22,24 @@ fun <T> Collection<T>.splitWhen(itemMatches: (item: T) -> Boolean): Collection<C
 
 object Day04 : Day {
 
-	val lineRegex = Regex("""^\[(\d\d\d\d-\d\d-\d\d \d\d:\d\d)\] (.*)$""")
-	val guardRegex = Regex("""^Guard #(\d+) begins shift$""")
-	val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-
-	fun parse(line: String): Pair<LocalDateTime, String> {
-		val (date, string) = lineRegex.matchEntire(line)!!.groupValues.drop(1)
-		return (LocalDateTime.parse(date, dateFormat) to string)
-	}
-
-	fun toGuard(lines: Iterable<Pair<LocalDateTime, String>>): Guard {
-		val id = guardRegex.matchEntire(lines.first().second)!!.groupValues[1].toInt()
-		val naps = lines.drop(1)
-		.splitWhen { "falls asleep" in it.second}
-		.map { Pair(it.first().first, it.last().first) }
-		return Guard(id, naps)
-	}
-
-	fun parseGuards(input: List<String>): Collection<Guard> {
-		 return input
-		.map(this::parse)
-		.sortedBy { it.first }
-		.splitWhen { (_, message) -> "Guard #" in message }
-		.filter { it.size > 1 }
-		.map(this::toGuard)
-		.groupingBy { it.id }.reduce { _, prev, cur -> prev.withNaps(cur.naps) }
-		.values
+	private fun parseGuards(input: List<String>): Collection<Guard> {
+		return input.sorted()
+		.map { Line.parse(it) }
+		.splitWhen { "begins shift" in it.message }
+		.map { Shift.parse(it) }
+		.groupBy { it.guardId }
+		.map { (id, shifts) -> Guard(id, shifts) }
 	}
 
 	override fun part1(input: List<String>): String {
-		val sleepiestGuard = parseGuards(input).maxBy { it.totalSleep }!!
+		val guards = parseGuards(input)
 
-		val id = sleepiestGuard.id
-		val totalSleep = sleepiestGuard.totalSleep
-		val sleepiestMinute = sleepiestGuard.sleepiestMinute
-		println("The sleepiest guard was #$id at $totalSleep minutes. The sleepiest minute was $sleepiestMinute")
-		return (id * sleepiestMinute).toString()
+		val sleepiestGuard = guards.maxBy { it.totalNapDuration }
+		val sleepiestMinute = sleepiestGuard?.sleepiestMinute
+
+		println("Guard #${sleepiestGuard?.id} was asleep most often at minute ${sleepiestMinute}")
+
+		return (sleepiestGuard!!.id * sleepiestMinute!!).toString()
 	}
 
 	override fun part2(input: List<String>): String {
