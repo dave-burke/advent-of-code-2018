@@ -29,8 +29,9 @@ object Day05: Day {
 		val baseInput = input[0]
 
 		val results = mutableMapOf<Char, Int>()
-		for( c in 'a'..'z' ){
+		for( c in baseInput.toLowerCase().asIterable().distinct() ){
 			val candidate = process(baseInput.replace(Regex("[$c${c.toUpperCase()}]"), ""))
+			println("$c -> ${candidate.length}")
 			results.put(c, candidate.length)
 		}
 		return results.values.min().toString()
