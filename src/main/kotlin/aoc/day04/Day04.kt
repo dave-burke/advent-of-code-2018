@@ -35,7 +35,7 @@ object Day04 : Day {
 		val guards = parseGuards(input)
 
 		val sleepiestGuard = guards.maxBy { it.totalNapDuration }
-		val sleepiestMinute = sleepiestGuard?.sleepiestMinute
+		val sleepiestMinute = sleepiestGuard?.sleepiestMinute?.key
 
 		println("Guard #${sleepiestGuard?.id} was asleep most often at minute ${sleepiestMinute}")
 
@@ -43,7 +43,14 @@ object Day04 : Day {
 	}
 
 	override fun part2(input: List<String>): String {
-		return input[0]
+		val guards = parseGuards(input)
+
+		val sleepiestGuard = guards.maxBy { it.sleepiestMinute?.value ?: 0 }
+		val sleepiestMinute = sleepiestGuard?.sleepiestMinute?.key
+
+		println("Guard #${sleepiestGuard?.id} was asleep most often at minute ${sleepiestMinute}")
+
+		return (sleepiestGuard!!.id * sleepiestMinute!!).toString()
 	}
 
 }

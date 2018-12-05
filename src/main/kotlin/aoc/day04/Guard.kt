@@ -6,7 +6,7 @@ data class Guard(val id: Int, val shifts: List<Shift>) {
 
 	val totalNapDuration = shifts.map { it.totalNapDuration }.sum()
 
-	val sleepiestMinute = sleepFrequencyByMinute.maxBy { (_,v) -> v }?.key
+	val sleepiestMinute = sleepFrequencyByMinute.maxBy { (_,v) -> v }
 
 	val sleepFrequencyByMinute: Map<Int, Int>
 		get() {
