@@ -26,7 +26,8 @@ object Day05: Day {
 	}
 
 	override fun part2(input: List<String>): String {
-		val baseInput = input[0]
+		// It takes 3x as long if we don't pre-process here
+		val baseInput = process(input[0])
 
 		val results = mutableMapOf<Char, Int>()
 		for( c in baseInput.toLowerCase().asIterable().distinct() ){
