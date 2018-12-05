@@ -47,17 +47,22 @@ class Day05Test {
 	}
 
 	@Test
-	@Ignore
 	fun testPart2_sample0() {
 		// Given
 		val input = listOf(
-				""
+				"dabAcCaCBAcCcaDA"
 		)
 
 		// When
 		val result = day.part2(input)
 
 		// Then
-		assertEquals("", result)
+		assertEquals("4", result)
 	}
+
+	@Test
+	fun testPart2(){
+		util.testPart2(inputForDay(5), "5278")
+	}
+
 }
