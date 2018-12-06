@@ -1,4 +1,4 @@
-package aoc.day05
+package aoc.day06
 
 import aoc.AocTestUtil
 import aoc.inputForDay
@@ -13,7 +13,14 @@ class Day06Test {
 
 	@Test
 	fun testPart1_sample0() {
-		util.testPart1(listOf(""), "")
+		util.testPart1(listOf(
+			"1, 1",
+			"1, 6",
+			"8, 3",
+			"3, 4",
+			"5, 5",
+			"8, 9"
+		), "17")
 	}
 
 	@Test
