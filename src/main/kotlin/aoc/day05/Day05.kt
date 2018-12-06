@@ -4,21 +4,19 @@ import aoc.Day
 
 object Day05: Day {
 
-	fun doFold(acc: String, c: Char): String {
+	fun process(polymer: String): String {
+		return polymer.fold("") { acc, c ->
 			if(acc.isEmpty()){
-				return "${c}"
+				return@fold "$c"
 			}
 			val lastChar = acc.last()
 			if(lastChar.equals(c, ignoreCase = true)){
 				if(lastChar.isUpperCase() != c.isUpperCase()){
-					return acc.dropLast(1)
+					return@fold acc.dropLast(1)
 				}
 			}
-			return acc + c
-	}
-
-	fun process(polymer: String): String {
-		return polymer.fold("") { acc, c -> doFold(acc, c) }
+			return@fold acc + c
+		}
 	}
 
 	override fun part1(input: List<String>): String {
@@ -33,7 +31,7 @@ object Day05: Day {
 		for( c in baseInput.toLowerCase().asIterable().distinct() ){
 			val candidate = process(baseInput.replace(Regex("[$c${c.toUpperCase()}]"), ""))
 			println("$c -> ${candidate.length}")
-			results.put(c, candidate.length)
+			results[c] = candidate.length
 		}
 		return results.values.min().toString()
 	}
