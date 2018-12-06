@@ -7,7 +7,7 @@ object Day05: Day {
 	fun process(polymer: String): String {
 		return polymer.fold("") { acc, c ->
 			if(acc.isEmpty()){
-				return@fold "${c}"
+				return@fold "$c"
 			}
 			val lastChar = acc.last()
 			if(lastChar.equals(c, ignoreCase = true)){
@@ -31,7 +31,7 @@ object Day05: Day {
 		for( c in baseInput.toLowerCase().asIterable().distinct() ){
 			val candidate = process(baseInput.replace(Regex("[$c${c.toUpperCase()}]"), ""))
 			println("$c -> ${candidate.length}")
-			results.put(c, candidate.length)
+			results[c] = candidate.length
 		}
 		return results.values.min().toString()
 	}
