@@ -5,10 +5,15 @@ import aoc.Day
 object Day06: Day {
 
 	override fun part1(input: List<String>): String {
-		val pairs = input.map { it.split(", ") }.map { Pair(it[0].toInt(), it[1].toInt()) }
-		val grid = Grid(pairs)
+		val points = input.map { it.split(", ") }.map { Point(it[0].toInt(), it[1].toInt()) }
+		val grid = Grid(points)
 
-		println("Grid is (${grid.minX},${grid.minY}) to (${grid.maxX}, ${grid.maxY})") 
+		println("Grid is sized from (${grid.minX},${grid.minY}) to (${grid.maxX}, ${grid.maxY})")
+		println("It has points ${grid.points}")
+		println("Points: ")
+		grid.printPoints()
+		println("Regions: ")
+		grid.printRegions()
 
 		return "17"
 	}
