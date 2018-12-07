@@ -29,9 +29,22 @@ class Day06Test {
 	}
 
 	@Test
-	@Ignore
 	fun testPart2_sample0(){
-		util.testPart2(listOf(""), "")
+		//Given
+		val input = listOf(
+			"1, 1",
+			"1, 6",
+			"8, 3",
+			"3, 4",
+			"5, 5",
+			"8, 9"
+		)
+
+		// When
+		val result = day.safeRegionSize(input, 32)
+
+		// Then
+		assertEquals(16, result)
 	}
 
 }

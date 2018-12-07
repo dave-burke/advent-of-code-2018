@@ -17,29 +17,19 @@ data class Grid(val points: List<Point>) {
 		val regionsByPointTmp = mutableMapOf<Point, MutableList<Point>>()
 		val pointsByCoordinateTmp = mutableMapOf<Point, Point>()
 
-		eachCoordinate(action = {coordinate ->
+		eachCoordinate{ coordinate ->
 			val nearestPoint = nearestPoint(coordinate)
-			println("Nearest point to $coordinate is $nearestPoint...")
 			if(nearestPoint != null) {
 				val region = regionsByPointTmp.getOrDefault(nearestPoint, mutableListOf())
 				region.add(coordinate)
 				regionsByPointTmp[nearestPoint] = region
 				pointsByCoordinateTmp[coordinate] = nearestPoint
 			}
-		})
+		}
 
 		regionsByPoint = regionsByPointTmp.map { (k, v) -> k to v.toList() }.toMap()
 		pointsByCoordinate = pointsByCoordinateTmp.toMap()
 	}
-
-	private val letters = mapOf(
-			0 to "a",
-			1 to "b",
-			2 to "c",
-			3 to "d",
-			4 to "e",
-			5 to "f"
-	)
 
 	private fun nearestPoint(coordinate: Point): Point? {
 		val nearestPoints = points.sortedBy { it distanceTo coordinate}
@@ -73,63 +63,96 @@ data class Grid(val points: List<Point>) {
 		return coordinate.x == minX || coordinate.x == maxX || coordinate.y == minY || coordinate.y == maxY
 	}
 
-	private fun eachCoordinate(action: (Point) -> Unit, rowAction: (i: Int) -> Unit = { }) {
+	private fun distanceSum(coordinate: Point): Int {
+		return points.map { it distanceTo coordinate }.sum()
+	}
+
+	fun safeRegion(criteria: Int): Collection<Point>{
+		val result = mutableListOf<Point>()
+		eachCoordinate { coordinate ->
+			if(distanceSum(coordinate) < criteria) {
+				result.add(coordinate)
+			}
+		}
+		return result.toList()
+	}
+
+	fun printDistanceSums() {
+		printEachCoordinate{ 
+			val sum = distanceSum(it)
+			if(sum < 32) {
+				print(sum.toString().padStart(3, '0') + " ")
+			} else {
+				print(" . ")
+			}
+		}
+	}
+
+	private fun eachCoordinate(action: (Point) -> Unit) {
 		for(y in 0..maxY) {
 			for(x in 0..maxX) {
 				action(Point(x, y))
 			}
-			rowAction(y)
 		}
 	}
 
+	private fun printEachCoordinate(action: (Point) -> Unit) {
+		for(y in 0..maxY) {
+			for(x in 0..maxX) {
+				action(Point(x, y))
+			}
+			println()
+		}
+	}
+
+	private val letters = mapOf(
+			0 to "a",
+			1 to "b",
+			2 to "c",
+			3 to "d",
+			4 to "e",
+			5 to "f"
+	)
+
 	fun printHeatMap(coordinate: Point){
-		eachCoordinate(
-				action={ other ->
-					val distance = other distanceTo coordinate
-					if(other in points){
-						val index = points.indexOf(other)
-						print(letters[index]?.padStart(2, ' ') + " ")
-					} else {
-						print(distance.toString().padStart(2, '0') + " ")
-					}
-				},
-				rowAction={ println() }
-		)
+		printEachCoordinate{ other ->
+			val distance = other distanceTo coordinate
+			if(other in points){
+				val index = points.indexOf(other)
+				print(letters[index]?.padStart(2, ' ') + " ")
+			} else {
+				print(distance.toString().padStart(2, '0') + " ")
+			}
+		}
 		points.forEachIndexed { index, point -> println("Point ${letters[index]?.toUpperCase()} is ${point distanceTo coordinate} away from $coordinate") }
 	}
 
 	fun printPoints(){
-		eachCoordinate(
-				action={ coordinate ->
-					if(coordinate in points){
-						val index = points.indexOf(coordinate)
-						print(letters[index])
-					} else {
-						print(".")
-					}
-				},
-				rowAction = { println() }
-		)
+		printEachCoordinate{ coordinate ->
+			if(coordinate in points){
+				val index = points.indexOf(coordinate)
+				print(letters[index])
+			} else {
+				print(".")
+			}
+		}
 	}
 
 	fun printRegions(){
-		eachCoordinate(
-				action={ coordinate ->
-					val point = pointsByCoordinate[coordinate]
-					if(point == null){
-						print(".")
-					} else {
-						val index = points.indexOf(point)
-						val letter = letters[index]
-						if(coordinate == point){
-							print(letter?.toUpperCase())
-						} else {
-							print(letter)
-						}
-					}
-				},
-				rowAction = { println() }
-		)
+		printEachCoordinate{ coordinate ->
+			val point = pointsByCoordinate[coordinate]
+			if(point == null){
+				print(".")
+			} else {
+				val index = points.indexOf(point)
+				val letter = letters[index]
+				if(coordinate == point){
+					print(letter?.toUpperCase())
+				} else {
+					print(letter)
+				}
+			}
+		}
 	}
 
 }
