@@ -6,4 +6,8 @@ data class Point(val x: Int, val y: Int) {
 	infix fun distanceTo(other: Point): Int {
 		return (this.x - other.x).absoluteValue + (this.y - other.y).absoluteValue
 	}
+
+	override fun toString(): String {
+		return "($x, $y)"
+	}
 }

@@ -8,14 +8,10 @@ object Day06: Day {
 		val points = input.map { it.split(", ") }.map { Point(it[0].toInt(), it[1].toInt()) }
 		val grid = Grid(points)
 
-		println("Grid is sized from (${grid.minX},${grid.minY}) to (${grid.maxX}, ${grid.maxY})")
-		println("It has points ${grid.points}")
-		println("Points: ")
-		grid.printPoints()
-		println("Regions: ")
-		grid.printRegions()
+		val (point, size) = grid.largestRegionPoint()!!
+		println("The point with the largest region is $point with a size of $size")
 
-		return "17"
+		return size.toString()
 	}
 
 	override fun part2(input: List<String>): String {

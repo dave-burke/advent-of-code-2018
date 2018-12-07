@@ -24,6 +24,11 @@ class Day06Test {
 	}
 
 	@Test
+	fun testPart1() {
+		util.testPart1(inputForDay(6), "3401")
+	}
+
+	@Test
 	@Ignore
 	fun testPart2_sample0(){
 		util.testPart2(listOf(""), "")

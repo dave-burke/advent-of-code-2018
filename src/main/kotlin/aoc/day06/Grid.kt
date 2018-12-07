@@ -18,10 +18,13 @@ data class Grid(val points: List<Point>) {
 		val pointsByCoordinateTmp = mutableMapOf<Point, Point>()
 
 		eachCoordinate(action = {coordinate ->
-			val nearest = points.sortedBy { it distanceTo coordinate}
-			if((coordinate distanceTo nearest[0]) != (coordinate distanceTo nearest[1])) {
-				regionsByPointTmp.getOrDefault(nearest[0], mutableListOf()).add(coordinate)
-				pointsByCoordinateTmp[coordinate] = nearest[0]
+			val nearestPoint = nearestPoint(coordinate)
+			println("Nearest point to $coordinate is $nearestPoint...")
+			if(nearestPoint != null) {
+				val region = regionsByPointTmp.getOrDefault(nearestPoint, mutableListOf())
+				region.add(coordinate)
+				regionsByPointTmp[nearestPoint] = region
+				pointsByCoordinateTmp[coordinate] = nearestPoint
 			}
 		})
 
@@ -37,6 +40,38 @@ data class Grid(val points: List<Point>) {
 			4 to "e",
 			5 to "f"
 	)
+
+	private fun nearestPoint(coordinate: Point): Point? {
+		val nearestPoints = points.sortedBy { it distanceTo coordinate}
+		val tied = (coordinate distanceTo nearestPoints[0]) == (coordinate distanceTo nearestPoints[1])
+		return if(tied) null else nearestPoints[0]
+	}
+
+	fun largestRegionPoint(): Pair<Point, Int>? {
+		val pairs = points.map { 
+			val size = sizeOfRegionFor(it)
+			if (size == null) null else Pair(it, size)
+		}.filterNotNull()
+
+		return pairs.maxBy { it.second }
+	}
+
+	fun sizeOfRegionFor(point: Point): Int? {
+		return if (hasInfiniteRegion(point)) null else regionsByPoint[point]?.size
+	}
+
+	fun hasInfiniteRegion(point: Point): Boolean {
+		val region = regionsByPoint[point] ?: throw IllegalArgumentException("$point is not on this grid")
+		return isInfinite(region)
+	}
+
+	private fun isInfinite(region: Collection<Point>): Boolean {
+		return region.any { onEdge(it) }
+	}
+
+	private fun onEdge(coordinate: Point): Boolean {
+		return coordinate.x == minX || coordinate.x == maxX || coordinate.y == minY || coordinate.y == maxY
+	}
 
 	private fun eachCoordinate(action: (Point) -> Unit, rowAction: (i: Int) -> Unit = { }) {
 		for(y in 0..maxY) {
