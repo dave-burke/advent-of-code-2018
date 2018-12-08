@@ -25,23 +25,33 @@ class Day07Test {
 	}
 
 	@Test
-	@Ignore
 	fun testPart1() {
-		util.testPart1(inputForDay(7), "")
+		util.testPart1(inputForDay(7), "EUGJKYFQSCLTWXNIZMAPVORDBH")
 	}
 
 	@Test
-	@Ignore
 	fun testPart2_sample0() {
-		util.testPart2(listOf(
-				""
-		), "")
+		// Given
+		val input = listOf(
+				"Step C must be finished before step A can begin.",
+				"Step C must be finished before step F can begin.",
+				"Step A must be finished before step B can begin.",
+				"Step A must be finished before step D can begin.",
+				"Step B must be finished before step E can begin.",
+				"Step D must be finished before step E can begin.",
+				"Step F must be finished before step E can begin."
+		)
+
+		// When
+		val result = day.doPart2(input, 2, 0, 16).first
+
+		// Then
+		assertEquals("CABFDE", result)
 	}
 
 	@Test
-	@Ignore
 	fun testPart2() {
-		util.testPart2(inputForDay(7), "")
+		util.testPart2(inputForDay(7), "1014")
 	}
 
 }

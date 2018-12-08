@@ -15,6 +15,8 @@ class Graph(){
 		nodes.add(child)
 	}
 
+	val allDone get() = nodes.all { it.isDone }
+
 	val availableNodes get() = nodes.filter { it.isAvailable }.sortedBy { it.id }
 
 	val nextAvailableNode get() = availableNodes.firstOrNull()
@@ -25,6 +27,7 @@ class Graph(){
 			printNode(root)
 		}
 	}
+
 	private fun printNode(node: Node, indent: Int = 1){
 		for(i in 0..indent) print(' ')
 		println(node)

@@ -2,20 +2,25 @@ package aoc.day07
 
 data class Node(val id: Char) {
 
+	enum class Status {
+		UNSTARTED, IN_PROGRESS, DONE
+	}
+
 	private val _children = mutableSetOf<Node>()
 	val children: Set<Node> get() = _children.toSet()
 
 	private val _parents = mutableSetOf<Node>()
 	val parents: Set<Node> get() = _parents.toSet()
 
-	private var isDone = false
-	fun markDone(){
-		isDone = true
-	}
+	var status = Status.UNSTARTED
+
+	var isDone = false
+		get() = status == Status.DONE
 
 	val isAvailable: Boolean
 		get() {
 			return when {
+				status == Status.IN_PROGRESS -> false
 				isDone -> false
 				parents.isEmpty() -> true
 				else -> parents.all { it.isDone }
@@ -31,11 +36,8 @@ data class Node(val id: Char) {
 	}
 
 	override fun toString(): String {
-		return when {
-			isDone -> "$id (DONE)"
-			isAvailable -> "$id (AVAILABLE)"
-			else -> "$id (BLOCKED)"
-		}
+		val available = if (isAvailable) "AVAILABLE" else "UNAVAILABLE"
+		return "$id ($available - $status))"
 	}
 
 }
