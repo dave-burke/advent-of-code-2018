@@ -10,6 +10,7 @@ import aoc.day04.Day04
 import aoc.day05.Day05
 import aoc.day06.Day06
 import aoc.day07.Day07
+import aoc.day08.Day08
 
 class App {
 	private val days: Map<Int, Day> = mapOf(
@@ -19,7 +20,8 @@ class App {
 			4 to Day04,
 			5 to Day05,
 			6 to Day06,
-			7 to Day07
+			7 to Day07,
+			8 to Day08
 	)
 
 	fun exec(day: Int = 1, part: Int = 1): String {
