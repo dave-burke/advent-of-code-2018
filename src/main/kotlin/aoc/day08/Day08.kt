@@ -13,7 +13,11 @@ object Day08: Day {
 	}
 
 	override fun part2(input: List<String>): String {
-		TODO("Not unlocked yet")
+		val numbers = input[0].split(' ')
+
+		val root = Node.parse(numbers)
+
+		return root.value.toString()
 	}
 
 }

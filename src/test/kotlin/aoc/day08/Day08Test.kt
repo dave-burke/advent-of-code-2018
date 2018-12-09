@@ -22,10 +22,8 @@ class Day08Test {
 	}
 
 	@Test
-	@Ignore
 	fun testPart2_sample0() {
-		util.testPart2(listOf(
-		), "TODO")
+		util.testPart2(listOf("2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2"), "66")
 	}
 
 	@Test

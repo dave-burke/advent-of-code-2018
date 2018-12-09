@@ -6,6 +6,26 @@ data class Node(val children: List<Node>, val metadata: List<Int>) {
 
 	val metaSum: Int get() = metadata.sum() + children.map { it.metaSum }.sum()
 
+	val value: Int
+		get() {
+			if(children.isEmpty()){
+				return metadata.sum()
+			} else {
+				return metadata.map { index ->
+					if(index == 0){
+						return@map 0
+					} else {
+						val child = children.getOrNull(index - 1)
+						if(child == null){
+							return@map 0
+						} else {
+							return@map child.value
+						}
+					}
+				}.sum()
+			}
+		}
+
 	companion object {
 
 		fun parse(input: List<String>): Node {
