@@ -27,9 +27,8 @@ class Day08Test {
 	}
 
 	@Test
-	@Ignore
 	fun testPart2() {
-		util.testPart2(inputForDay(8), "TODO")
+		util.testPart2(inputForDay(8), "28237")
 	}
 
 }
