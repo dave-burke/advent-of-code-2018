@@ -1,6 +1,7 @@
 package aoc.day09
 
 import aoc.Day
+import kotlin.math.roundToInt
 
 object Day09: Day {
 
@@ -10,7 +11,17 @@ object Day09: Day {
 
 		val circle = MarbleCircle()
 
+		val checkpoint: Int
+		if(lastMarble > 100) {
+			checkpoint = (lastMarble.toDouble() / 100).roundToInt()
+		} else {
+			checkpoint = 1
+		}
 		for(i in 1..lastMarble){
+			if ( i % checkpoint == 0){
+				val percentComplete = ((i.toDouble() / lastMarble) * 100)
+				println("$i / $lastMarble = $percentComplete% done")
+			}
 			players.first.points += circle.addMarble()
 			players.rotate()
 		}
@@ -28,7 +39,10 @@ object Day09: Day {
 	}
 
 	override fun part2(input: List<String>): String {
-	    TODO("Not unlocked")
+		val (nPlayers, lastMarble) = regex.matchEntire(input[0])!!.groupValues.drop(1).map { it.toInt() }
+		val winner = playGame(nPlayers, lastMarble * 100)
+		println("${winner.id} wins with ${winner.points} points")
+		return winner.points.toString()
 	}
 
 }

@@ -47,15 +47,9 @@ class Day09Test {
 	}
 
 	@Test
-	@Ignore
-	fun testPart2_sample0() {
-		util.testPart2(listOf(""), "TODO")
-	}
-
-	@Test
-	@Ignore
+	@Ignore("This takes several minutes to run")
 	fun testPart2() {
-		util.testPart2(inputForDay(9), "TODO")
+		util.testPart2(inputForDay(9), "3277920293")
 	}
 
 }
