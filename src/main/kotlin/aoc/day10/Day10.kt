@@ -20,7 +20,17 @@ object Day10: Day {
 	}
 
 	override fun part2(input: List<String>): String {
-	    TODO("Not unlocked")
+		val sky = Sky(input.map { Star.parse(it) })
+		var area = sky.area()
+		for (i in 0..100000){
+			sky.step()
+			val newArea = sky.area()
+			if(newArea > area){
+				return i.toString()
+			}
+			area = newArea
+		}
+		return sky.toString()
 	}
 
 }

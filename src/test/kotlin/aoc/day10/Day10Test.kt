@@ -76,15 +76,8 @@ class Day10Test {
 	}
 
 	@Test
-	@Ignore
-	fun testPart2_sample0() {
-		util.testPart2(listOf(""), "TODO")
-	}
-
-	@Test
-	@Ignore
 	fun testPart2() {
-		util.testPart2(inputForDay(10), "TODO")
+		util.testPart2(inputForDay(10), "10942")
 	}
 
 }
