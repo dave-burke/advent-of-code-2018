@@ -13,13 +13,17 @@ class Day11Test {
 
 	@Test
 	fun testPart1_sample0() {
-		util.testPart1(listOf(""), "")
+		util.testPart1(listOf("18"), "33,45")
 	}
 
 	@Test
-	@Ignore
+	fun testPart1_sample1() {
+		util.testPart1(listOf("42"), "21,61")
+	}
+
+	@Test
 	fun testPart1() {
-		util.testPart1(inputForDay(11), "TODO")
+		util.testPart1(inputForDay(11), "21,41")
 	}
 
 	@Test
