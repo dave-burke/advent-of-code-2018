@@ -31,6 +31,24 @@ class Grid(val serialNo: Int, val width: Int = 300, val height: Int = 300){
 		return cells.flatMap { it }.maxBy { calcSquarePower(it.x, it.y, squareSize) }!!
 	}
 
+	fun calcMaxSquarePowerAnySize(): Pair<FuelCell, Int> {
+		var maxCell: FuelCell? = null
+		var maxSquarePower = 0
+		var maxSquareSize = 0
+
+		for(i in 0..300){
+			if(i % 10 == 0) println(i) else print(i)
+			val cell = calcMaxSquarePower(i)
+			val squarePower = calcSquarePower(cell.x, cell.y, i)
+			if(squarePower > maxSquarePower){
+				maxSquarePower = squarePower
+				maxCell = cell
+				maxSquareSize = i
+			}
+		}
+		return Pair(maxCell!!, maxSquareSize)
+	}
+
 	fun print(){
 		print(this)
 	}

@@ -27,9 +27,15 @@ class Day11Test {
 	}
 
 	@Test
-	@Ignore
+	@Ignore("Takes too long")
 	fun testPart2_sample0() {
-		util.testPart2(listOf(""), "TODO")
+		util.testPart2(listOf("18"), "90,269,16")
+	}
+
+	@Test
+	@Ignore("Takes too long")
+	fun testPart2_sample1() {
+		util.testPart2(listOf("42"), "232,251,12")
 	}
 
 	@Test
